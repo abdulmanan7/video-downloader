@@ -4,9 +4,10 @@ if (isset($_POST["url"])) {
 	$response ="Please wait request processing...";
 	$url = $_POST["url"];
 	$quality = $_POST["quality"];
-	$command = "youtube-dl -f $quality $url";
+  $location = "./downloads/%(title)s.f%(format_id)s.%(ext)s";
+	$command = "youtube-dl -f $quality -o '$location' $url";
 	if (isset($_POST["audio_only"])) {
-		$command = "youtube-dl -x $url";
+		$command = "youtube-dl -x -o '$location' $url";
 	}
 	$response = exec( $command, $output, $return_var );
 }
