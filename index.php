@@ -1,4 +1,7 @@
 <?php 
+// $protocol = ((!emptyempty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";  
+$CurPageURL = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$CurPageURL = str_replace("index.php","downloads/",$output[2]);
 $response ="";
 if (isset($_POST["url"])) {
 	$response ="Please wait request processing...";
@@ -10,6 +13,7 @@ if (isset($_POST["url"])) {
 		$command = "youtube-dl -x -o '$location' $url";
 	}
 	$response = exec( $command, $output, $return_var );
+  $response = str_replace("./downloads",$CurPageURL,$output[2]);
 }
 ?>
 <!DOCTYPE html>
